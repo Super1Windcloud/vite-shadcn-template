@@ -4,7 +4,9 @@ import { type RenderResult, render } from 'vitest-browser-react'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { DirectionProvider } from '@/context/direction-provider'
 import { LayoutProvider } from '@/context/layout-provider'
+import { LocaleProvider } from '@/context/locale-provider'
 import { ThemeProvider } from '@/context/theme-provider'
+import '@/i18n'
 import { getCookie, setCookie } from '@/lib/cookies'
 import { clearCookies } from '@/test-utils/cookies'
 import { ConfigDrawer } from './config-drawer'
@@ -15,24 +17,26 @@ async function renderConfigDrawer({
   sidebarDefaultOpen?: boolean
 } = {}) {
   return await render(
-    <DirectionProvider>
-      <ThemeProvider>
-        <LayoutProvider>
-          <SidebarProvider defaultOpen={sidebarDefaultOpen}>
-            <ConfigDrawer />
-          </SidebarProvider>
-        </LayoutProvider>
-      </ThemeProvider>
-    </DirectionProvider>
+    <LocaleProvider>
+      <DirectionProvider>
+        <ThemeProvider>
+          <LayoutProvider>
+            <SidebarProvider defaultOpen={sidebarDefaultOpen}>
+              <ConfigDrawer />
+            </SidebarProvider>
+          </LayoutProvider>
+        </ThemeProvider>
+      </DirectionProvider>
+    </LocaleProvider>
   )
 }
 
 async function openDrawer(screen: RenderResult) {
   await userEvent.click(
-    screen.getByRole('button', { name: /^Open theme settings$/i })
+    screen.getByRole('button', { name: /^Open preference settings$/i })
   )
   await expect
-    .element(screen.getByText(/^Theme Settings$/i))
+    .element(screen.getByText(/^Preference Settings$/i))
     .toBeInTheDocument()
 }
 
@@ -41,6 +45,7 @@ describe('ConfigDrawer (integration)', () => {
     vi.clearAllMocks()
 
     clearCookies()
+    void document.documentElement.removeAttribute('lang')
 
     document.documentElement.classList.remove('light', 'dark')
     document.documentElement.removeAttribute('dir')
@@ -55,6 +60,7 @@ describe('ConfigDrawer (integration)', () => {
 
     await expect.element(drawer).toBeInTheDocument()
 
+    await expect.element(drawer.getByText(/^Language$/i)).toBeInTheDocument()
     await expect.element(drawer.getByText(/^Theme$/i)).toBeInTheDocument()
     await expect.element(drawer.getByText(/^Layout$/i)).toBeInTheDocument()
     await expect
@@ -68,6 +74,18 @@ describe('ConfigDrawer (integration)', () => {
         })
       )
       .toBeInTheDocument()
+  })
+
+  it('changes locale and applies it to the html lang attribute and cookie', async () => {
+    const screen = await renderConfigDrawer()
+
+    await openDrawer(screen)
+
+    await userEvent.click(screen.getByRole('radio', { name: /select zh-cn/i }))
+    await vi.waitFor(() =>
+      expect(document.documentElement.getAttribute('lang')).toBe('zh-CN')
+    )
+    expect(getCookie('locale')).toBe('zh-CN')
   })
 
   describe('theme preference', () => {

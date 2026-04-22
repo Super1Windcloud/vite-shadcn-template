@@ -1,0 +1,73 @@
+export const zhCNCommon = {
+  app: {
+    name: 'Vite Shadcn 模板',
+  },
+  config: {
+    open: '打开偏好设置',
+    title: '偏好设置',
+    description: '调整语言、主题和布局偏好。',
+    resetAll: '恢复全部默认设置',
+    sections: {
+      language: '语言',
+      theme: '主题',
+      sidebar: '侧边栏',
+      layout: '布局',
+      direction: '方向',
+    },
+    resetLabels: {
+      language: '将语言偏好恢复为默认值',
+      theme: '将主题偏好恢复为默认值',
+      sidebar: '将侧边栏样式恢复为默认值',
+      layout: '将布局选项恢复为默认值',
+      direction: '将文本方向恢复为默认值',
+    },
+    descriptions: {
+      language: '选择应用展示语言',
+      theme: '在跟随系统、浅色和深色模式之间切换',
+      sidebar: '在 inset、floating 和标准侧边栏之间切换',
+      layout: '在默认展开、紧凑图标和全宽布局之间切换',
+      direction: '在从左到右和从右到左之间切换页面方向',
+    },
+    options: {
+      system: '跟随系统',
+      light: '浅色',
+      dark: '深色',
+      inset: 'Inset',
+      floating: 'Floating',
+      sidebar: 'Sidebar',
+      default: '默认',
+      compact: '紧凑',
+      fullLayout: '全宽布局',
+      ltr: '从左到右',
+      rtl: '从右到左',
+    },
+    aria: {
+      select: '选择{{label}}',
+      preview: '{{label}}选项预览',
+    },
+  },
+  dashboard: {
+    title: '仪表盘',
+    download: '下载',
+    tabs: {
+      overview: '概览',
+      analytics: '分析',
+      reports: '报表',
+      notifications: '通知',
+    },
+    cards: {
+      revenue: '总收入',
+      subscriptions: '订阅数',
+      sales: '销售额',
+      active: '当前活跃',
+      revenueDelta: '较上月增长 20.1%',
+      subscriptionsDelta: '较上月增长 180.1%',
+      salesDelta: '较上月增长 19%',
+      activeDelta: '较上一小时增加 201',
+    },
+    recentSales: {
+      title: '最近销售',
+      description: '你本月共完成 265 笔销售。',
+    },
+  },
+} as const

@@ -3,11 +3,12 @@ name: Continuous Integration
 on:
   push:
     branches:
+      - main
+      - master
       - ci
 
   pull_request:
-    branches:
-      - ci
+  workflow_dispatch:
 
 jobs:
   install-lint-build:
@@ -28,20 +29,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint the code
-        run: pnpm lint
-
-      # - name: Analyze unused files and dependencies
-      #   run: pnpm knip
-
-      - name: Run Prettier check
-        run: pnpm format:check
+      - name: Run checks
+        run: pnpm check
 
       - name: Install browsers
-        run: pnpm test:browser:install
+        run: pnpm test:install
 
       - name: Run tests
         run: pnpm test
-
-      - name: Build the project
-        run: pnpm build
