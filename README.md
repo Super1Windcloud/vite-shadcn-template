@@ -1,119 +1,139 @@
-# Shadcn Admin Dashboard
+# Vite Shadcn Template
 
-Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and accessibility in mind.
+一个基于 `Vite + React + TypeScript + shadcn/ui` 的后台模板，内置路由、表格、主题切换、表单、测试与基础工程化配置，适合作为中后台项目起点。
 
-![alt text](public/images/shadcn-admin.png)
+![Project Preview](public/images/shadcn-admin.png)
 
-[![Sponsored by Clerk](https://img.shields.io/badge/Sponsored%20by-Clerk-5b6ee1?logo=clerk)](https://go.clerk.com/GttUAaK)
+## Overview
 
-I've been creating dashboard UIs at work and for my personal projects. I always wanted to make a reusable collection of dashboard UI for future projects; and here it is now. While I've created a few custom components, some of the code is directly adapted from ShadcnUI examples.
-
-> This is not a starter project (template) though. I'll probably make one in the future.
+- `React 19` + `TypeScript`
+- `Vite 8` 构建
+- `TanStack Router` 路由
+- `TanStack Query` 数据请求缓存
+- `TanStack Table` 表格能力
+- `Tailwind CSS 4` + `shadcn/ui`
+- `Biome` 负责 lint / format
+- `Vitest` + browser mode 测试
+- `Husky` + `commitlint` 提交规范校验
 
 ## Features
 
-- Light/dark mode
-- Responsive
-- Accessible
-- With built-in Sidebar component
-- Global search command
-- 10+ pages
-- Extra custom components
-- RTL support
+- 完整的后台界面骨架
+- 深色 / 浅色主题切换
+- 响应式布局与侧边栏
+- 命令面板搜索
+- 表格、分页、筛选、批量操作
+- 表单与对话框组件
+- RTL 支持
+- Clerk 登录页示例
 
-<details>
-<summary>Customized Components (click to expand)</summary>
-
-This project uses Shadcn UI components, but some have been slightly modified for better RTL (Right-to-Left) support and other improvements. These customized components differ from the original Shadcn UI versions.
-
-If you want to update components using the Shadcn CLI (e.g., `npx shadcn@latest add <component>`), it's generally safe for non-customized components. For the listed customized ones, you may need to manually merge changes to preserve the project's modifications and avoid overwriting RTL support or other updates.
-
-> If you don't require RTL support, you can safely update the 'RTL Updated Components' via the Shadcn CLI, as these changes are primarily for RTL compatibility. The 'Modified Components' may have other customizations to consider.
-
-### Modified Components
-
-- scroll-area
-- sonner
-- separator
-
-### RTL Updated Components
-
-- alert-dialog
-- calendar
-- command
-- dialog
-- dropdown-menu
-- select
-- table
-- sheet
-- sidebar
-- switch
-
-**Notes:**
-
-- **Modified Components**: These have general updates, potentially including RTL adjustments.
-- **RTL Updated Components**: These have specific changes for RTL language support (e.g., layout, positioning).
-- For implementation details, check the source files in `src/components/ui/`.
-- All other Shadcn UI components in the project are standard and can be safely updated via the CLI.
-
-</details>
-
-## Tech Stack
-
-**UI:** [ShadcnUI](https://ui.shadcn.com) (TailwindCSS + RadixUI)
-
-**Build Tool:** [Vite](https://vitejs.dev/)
-
-**Routing:** [TanStack Router](https://tanstack.com/router/latest)
-
-**Type Checking:** [TypeScript](https://www.typescriptlang.org/)
-
-**Linting/Formatting:** [Biome](https://biomejs.dev/)
-
-**Icons:** [Lucide Icons](https://lucide.dev/icons/), [Tabler Icons](https://tabler.io/icons) (Brand icons only)
-
-**Auth (partial):** [Clerk](https://go.clerk.com/GttUAaK)
-
-## Run Locally
-
-Clone the project
+## Quick Start
 
 ```bash
-  git clone https://github.com/satnaing/shadcn-admin.git
+git clone <your-repo-url>
+cd vite-shadcn-template
+pnpm install
+pnpm dev
 ```
 
-Go to the project directory
+默认开发地址：
 
 ```bash
-  cd shadcn-admin
+http://localhost:5173
 ```
 
-Install dependencies
+## Environment Variables
+
+复制环境变量文件并按需填写：
 
 ```bash
-  pnpm install
+cp .env.example .env
 ```
 
-Start the server
+当前示例环境变量：
 
 ```bash
-  pnpm run dev
+VITE_CLERK_PUBLISHABLE_KEY=
 ```
 
-## Sponsoring this project ❤️
+## Scripts
 
-If you find this project helpful or use this in your own work, consider [sponsoring me](https://github.com/sponsors/satnaing) to support development and maintenance. You can [buy me a coffee](https://buymeacoffee.com/satnaing) as well. Don’t worry, every penny helps. Thank you! 🙏
+```bash
+pnpm dev
+pnpm build
+pnpm preview
+pnpm lint
+pnpm format
+pnpm format:check
+pnpm fix
+pnpm type-check
+pnpm test
+pnpm test:watch
+pnpm test:ui
+pnpm test:coverage
+pnpm commitlint --edit
+```
 
-For questions or sponsorship inquiries, feel free to reach out at [satnaingdev@gmail.com](mailto:satnaingdev@gmail.com).
+## Commit Workflow
 
-### Current Sponsor
+项目已配置：
 
-- [Clerk](https://go.clerk.com/GttUAaK) - authentication and user management for the modern web
+- `husky`
+- `commitlint`
+- `commitizen` 配置文件 `cz.yaml`
 
-## Author
+推荐提交格式：
 
-Crafted with 🤍 by [@satnaing](https://github.com/satnaing)
+```bash
+feat: add dashboard filters
+fix: correct table pagination state
+docs: update setup guide
+```
+
+## Project Structure
+
+```text
+.
+├─ public/                 静态资源
+├─ src/
+│  ├─ assets/              图片与图标
+│  ├─ components/          通用组件
+│  ├─ context/             全局上下文
+│  ├─ features/            页面级功能模块
+│  ├─ hooks/               复用 hooks
+│  ├─ lib/                 工具函数
+│  ├─ routes/              路由文件
+│  ├─ stores/              状态管理
+│  └─ styles/              全局样式
+├─ .github/                CI 与协作模板
+├─ .husky/                 Git hooks
+├─ biome.json              Biome 配置
+├─ commitlint.config.mjs   commitlint 配置
+├─ components.json         shadcn 配置
+├─ vite.config.ts          Vite 配置
+└─ package.json
+```
+
+## UI Notes
+
+该模板中的部分 `shadcn/ui` 组件做过定制，尤其是 RTL 和交互细节相关部分。升级组件时建议优先检查这些目录中的现有改动：
+
+- `src/components/ui`
+- `src/components/layout`
+- `src/context`
+
+## Recommended Workflow
+
+开发时建议使用以下顺序：
+
+```bash
+pnpm dev
+pnpm lint
+pnpm type-check
+pnpm test
+pnpm build
+```
 
 ## License
 
-Licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
+Licensed under the [MIT License](LICENSE).

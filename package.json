@@ -1,5 +1,5 @@
 {
-  "name": "shadcn-admin",
+  "name": "vite-shadcn-template",
   "private": false,
   "version": "2.2.1",
   "type": "module",
@@ -8,6 +8,7 @@
     "taze": "npx taze latest -w",
     "build": "tsc -b && vite build",
     "lint": "biome check .",
+    "commitlint": "commitlint --edit",
     "preview": "vite preview",
     "format:check": "biome format --check .",
     "format": "biome format --write .",
@@ -21,7 +22,8 @@
     "prepare": "husky install",
     "fix": "biome check --write",
     "type-check": "tsc --noEmit",
-    "shadcn": "npx shadcn@latest add -a -y -o"
+    "shadcn": "npx shadcn@latest add -a -y -o",
+    "clean": "npx rimraf node_modules"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
@@ -76,6 +78,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.12",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@faker-js/faker": "^10.4.0",
     "@tanstack/react-query-devtools": "^5.99.2",
     "@tanstack/react-router-devtools": "^1.166.13",
